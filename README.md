@@ -16,8 +16,6 @@ Docker
 
 #### docker-compose 
 [How to install on your machine](https://docs.docker.com/compose/install)
-amples
-```
 
 ### Installing
 
@@ -25,6 +23,7 @@ amples
 git clone https://https://github.com/arisema/MERN_Stack_Practice/ master
 
 cd MERN_Stack_Practice
+
 docker-compose up
 ```
 
