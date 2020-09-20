@@ -1,0 +1,52 @@
+version: "3.6"
+services:
+        # node api production container
+        node_api_prod:
+            build:
+                    context: "./services/node_api"
+                    dockerfile: "Dockerfile"
+            container_name: ${PRODUCTION_API_CONTAINER_NAME}
+            ports:
+                    - "${PRODUCTION_PORT}:8080"
+            environment:
+                    - MONGO_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_URI}
+            env_file:
+                    - .env
+            command: prod
+            networks:
+                    - mern_network
+            depends_on:
+                    - "mongo_db"
+        # node api dev container
+        node_api_dev:
+                build:
+                        context: "./services/node_api"
+                        dockerfile: "Dockerfile"
+                container_name: ${DEV_API_CONTAINER_NAME}
+                ports:
+                        - "${DEVELOPMENT_PORT}:8080"
+                environment:
+                        - MONGO_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_URI}
+                env_file:
+                        - .env
+                command: dev
+                networks:
+                        - mern_network
+                depends_on:
+                        - "mongo_db"
+        # mongodb database
+        mongo_db:        
+                image: mongo:4.2.2        
+                restart: always        
+                environment: 
+                        - MONGO_USERNAME:${MONGO_USERNAME}
+                        - MONGO_PASSWORD:${MONGO_PASSWORD}        
+                volumes:            
+                        - ./db:/data/db        
+                expose:            
+                        - "27017"                
+                networks:            
+                        - mern_network    
+networks:
+        mern_network:
+                driver: bridge
