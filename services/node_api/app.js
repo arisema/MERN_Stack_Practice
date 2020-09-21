@@ -1,5 +1,7 @@
 'use strict';
 
+require('./models/mongodb');
+
 const express = require('express');
 const path = require('path');
 const bodyparser = require('body-parser');
@@ -20,3 +22,6 @@ const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 8888;
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
+
+const employeeController = require('./controllers/employeeController');
+app.use('/employee', employeeController);
