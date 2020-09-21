@@ -39,6 +39,7 @@ router.post('/', (request, response) => {
         else {
             console.log('Error encountered: '+error);
             console.log(request.body);
+            response.json({ error_message: error.message });
         }
     });
 });
@@ -50,14 +51,14 @@ router.put('/', (request, response) => {
         {new : true},
         (error, doc) => {
             if(!error) response.json({ employee: doc });
-            else console.log('Error encountered: '+error);
+            else response.json({ error_message: "Transaction failed!" });
         });
 });
 // delete employee request
 router.delete('/', (request, response) => {
     Employee.findByIdAndRemove(request.body.id, (error, doc) => {
         if(!error) response.redirect('/employee/list');
-        else console.log('Error encountered: '+error);
+        else response.json({ error_message: "Transaction failed!" });
     });
 });
 
