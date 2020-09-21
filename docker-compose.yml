@@ -8,8 +8,6 @@ services:
             container_name: ${PRODUCTION_API_CONTAINER_NAME}
             ports:
                     - "${PRODUCTION_PORT}:8080"
-            environment:
-                    - MONGO_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_URI}
             env_file:
                     - .env
             command: prod
@@ -25,8 +23,6 @@ services:
                 container_name: ${DEV_API_CONTAINER_NAME}
                 ports:
                         - "${DEVELOPMENT_PORT}:8080"
-                environment:
-                        - MONGO_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_URI}
                 env_file:
                         - .env
                 command: dev
@@ -46,7 +42,7 @@ services:
                 expose:            
                         - "27017"                
                 networks:            
-                        - mern_network    
+                        - mern_network
 networks:
         mern_network:
                 driver: bridge

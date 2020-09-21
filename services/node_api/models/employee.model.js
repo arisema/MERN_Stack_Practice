@@ -7,17 +7,18 @@ var employeeSchema = new mongoose.Schema({
         required : 'This field is required!'
     },
     employeeDateOfBirth : {
-        type : String,
+        type : Date,
         required : 'This field is required!'
     },
     employeeGender : {
         type : String,
-        required : 'This field is required!'
+        enum: ['female', 'male'],
+        default: 'male'
     },
     employeeSalary : {
-        type : String,
+        type : Number,
         required : 'This field is required!' 
     }
-});
+}, {strict: "throw"});
 
 mongoose.model('Employee', employeeSchema);
